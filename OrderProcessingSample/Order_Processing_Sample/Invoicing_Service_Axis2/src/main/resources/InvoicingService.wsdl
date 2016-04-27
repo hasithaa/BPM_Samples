@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="InvoicingService" targetNamespace="http://www.wso2.org/samples/InvoicingService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.wso2.org/samples/InvoicingService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.wso2.org/samples/InvoicingService/" xmlns:Q1="http://www.wso2.org/samples/OrderProcessingProcess/">
+			<xsd:import id="OrderProcessingProcess" namespace="http://www.wso2.org/samples/OrderProcessingProcess/" schemaLocation="OrderProcessingProcess.xsd"/>
+			<xsd:element name="Invoice" type="Q1:invoiceType"/>
+			<xsd:element name="InvoiceResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="orderID" type="xsd:string"/>
+						<xsd:element name="totalAmount" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="InvoiceRequest">
+    <wsdl:part name="Invoice" element="tns:Invoice">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="InvoiceResponse">
+    <wsdl:part name="InvoiceResponse" element="tns:InvoiceResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="InvoicingService">
+    <wsdl:operation name="Invoice">
+      <wsdl:input message="tns:InvoiceRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:InvoiceResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="InvoicingServiceSOAP" type="tns:InvoicingService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Invoice">
+      <soap:operation soapAction="http://www.wso2.org/samples/InvoicingService/Invoice"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="InvoicingService">
+    <wsdl:port name="InvoicingServiceSOAP" binding="tns:InvoicingServiceSOAP">
+      <soap:address location="http://localhost:9763/services/InvoicingService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

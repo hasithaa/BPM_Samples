@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.wso2.samples</groupId>
+		<artifactId>Order_Processing_Sample</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>Copy_artifacts</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+
+	<name>Copy_artifacts</name>
+	<description>Copy_artifacts</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.7</version>
+				<executions>
+					<execution>
+						<id>clean_target</id>
+						<phase>install</phase>
+						<configuration>
+							<target>
+								<mkdir dir="target/bps" />
+								<mkdir dir="target/bps/bpel" />
+								<mkdir dir="target/bps/humantasks" />
+								<mkdir dir="target/bps/axis2services" />
+								<mkdir dir="target/brs" />
+								<mkdir dir="target/brs/ruleservices" />
+								<copy todir="target/bps/bpel" flatten="true">
+									<resources>
+										<file
+											file="${project.basedir}/../Order_Processing_Process/target/Order_Processing_Process-1.0.0.zip" />
+									</resources>
+								</copy>
+								<copy todir="target/bps/humantasks" flatten="true">
+									<resources>
+										<file
+											file="${project.basedir}/../Order_Processing_Approval_HumanTask/target/Order_Processing_Approval_HumanTask.zip" />
+									</resources>
+								</copy>
+								<copy todir="target/bps/axis2services" flatten="true">
+									<resources>
+										<file
+											file="${project.basedir}/../Invoicing_Service_Axis2/target/Invoicing_Service_Axis2-1.0.0.aar" />
+											<file
+											file="${project.basedir}/../Place_Order_Axis2/target/Place_Order_Axis2-1.0.0.aar" />
+									</resources>
+								</copy>
+								<copy todir="target/brs/ruleservices" flatten="true">
+									<resources>
+										<file
+											file="${project.basedir}/../Warehouse_Locator_Service/target/Warehouse_Locator_Service-1.0.0.aar" />
+									</resources>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

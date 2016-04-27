@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.6.1-wso2v14  Built on : Jul 25, 2015 (11:19:54 IST) -->
+<serviceGroup>
+   <service name="InvoicingService">
+      <messageReceivers>
+         <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out"
+                          class="org.wso2.samples.invoicingservice.InvoicingServiceMessageReceiverInOut"/>
+      </messageReceivers>
+      <parameter name="ServiceClass">org.wso2.samples.invoicingservice.InvoicingServiceSkeleton</parameter>
+      <parameter name="useOriginalwsdl">true</parameter>
+      <parameter name="modifyUserWSDLPortAddress">true</parameter>
+      <operation name="Invoice"
+                 mep="http://www.w3.org/ns/wsdl/in-out"
+                 namespace="http://www.wso2.org/samples/InvoicingService/">
+         <actionMapping>http://www.wso2.org/samples/InvoicingService/Invoice</actionMapping>
+         <outputActionMapping>http://www.wso2.org/samples/InvoicingService/InvoicingService/InvoiceResponse</outputActionMapping>
+      </operation>
+   </service>
+</serviceGroup>

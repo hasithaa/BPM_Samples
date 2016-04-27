@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03"
+	xmlns:InvoicingService="http://www.wso2.org/samples/InvoicingService/"
+	xmlns:OrderProcessingApprovalTask="http://www.wso2.org/samples/OrderProcessingApprovalTask/"
+	xmlns:OrderProcessingProcess="http://www.wso2.org/samples/OrderProcessingProcess/"
+	xmlns:Orderprocessing="http://wso2.org/bps/sample/Orderprocessing"
+	xmlns:PlaceOrderService="http://www.wso2.org/samples/PlaceOrderService/"
+	xmlns:ns="http://org.wso2.brs.sample/ns" xmlns:b4p="http://docs.oasis-open.org/ns/bpel4people/bpel4people/200803">
+	<process name="Orderprocessing:OrderprocessingProcess">
+		<active>true</active>
+		<retired>false</retired>
+		<process-events generate="all" />
+		<provide partnerLink="OrderProcessingProcess">
+			<service name="OrderProcessingProcess:OrderProcessingProcess"
+				port="OrderProcessingProcessSOAP" />
+		</provide>
+		<provide partnerLink="OrderApprovalTask" correlationFilter="b4p:b4pFilter">
+			<service
+				name="OrderProcessingApprovalTask:OrderProcessingApprovalTaskCallback"
+				port="OrderProcessingApprovalTaskCallbackSOAP" />
+		</provide>
+		<invoke partnerLink="InvoicingService">
+			<service name="InvoicingService:InvoicingService" port="InvoicingServiceSOAP" />
+		</invoke>
+		<invoke partnerLink="NotificationService">
+			<service name="OrderProcessingApprovalTask:OrderProcessingNotifications"
+				port="OrderProcessingNotificationsSOAP" />
+		</invoke>
+		<invoke partnerLink="OrderApprovalTask">
+			<service name="OrderProcessingApprovalTask:OrderProcessingApprovalTask"
+				port="OrderProcessingApprovalTaskSOAP" />
+		</invoke>
+		<invoke partnerLink="WarehouseLocatorRuleService">
+			<service name="ns:warehouseLocator" port="warehouseLocatorHttpSoap11Endpoint" />
+		</invoke>
+		<invoke partnerLink="PlaceOrderService">
+			<service name="PlaceOrderService:PlaceOrderService" port="PlaceOrderServiceSOAP" />
+		</invoke>
+	</process>
+</deploy>

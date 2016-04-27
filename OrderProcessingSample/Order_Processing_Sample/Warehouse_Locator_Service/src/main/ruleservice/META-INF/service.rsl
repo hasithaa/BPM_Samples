@@ -1,0 +1,17 @@
+<brs:ruleService name="warehouseLocator" scope="Request"
+  targetNamespace="http://org.wso2.brs.sample/ns" xmlns:brs="http://wso2.org/carbon/rules">
+  <brs:ruleSet>
+    <brs:properties/>
+    <brs:rule resourceType="regular" sourceType="file">warehouseLocationRule.drl</brs:rule>
+  </brs:ruleSet>
+  <brs:operation name="getWarehouseDetails">
+    <brs:input namespace="http://org.wso2.brs.sample/warehouselocator" wrapperElementName="getWarehouseDetailsRequest">
+      <brs:fact elementName="Request"
+        namespace="http://org.wso2.brs.sample/warehouselocator" type="org.wso2.sample.warehouselocator.Request"/>
+    </brs:input>
+    <brs:output namespace="http://org.wso2.brs.sample/warehouselocator" wrapperElementName="getWarehouseDetailsResponse">
+      <brs:fact elementName="Response"
+        namespace="http://org.wso2.brs.sample/warehouselocator" type="org.wso2.sample.warehouselocator.Response"/>
+    </brs:output>
+  </brs:operation>
+</brs:ruleService>

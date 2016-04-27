@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project name="OrderProcessingProcess" resourceRoot="" soapui-version="4.0.1.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="OrderProcessingProcessSOAP" type="wsdl" bindingName="{http://www.wso2.org/samples/OrderProcessingProcess/}OrderProcessingProcessSOAP" soapVersion="1_1" anonymous="optional" definition="http://localhost:9763/services/OrderProcessingProcess?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:9763/services/OrderProcessingProcess?wsdl"><con:part><con:url>http://localhost:9763/services/OrderProcessingProcess?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="OrderProcessingProcess" targetNamespace="http://www.wso2.org/samples/OrderProcessingProcess/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.wso2.org/samples/OrderProcessingProcess/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xsd:schema>
+      <xsd:import id="OrderProcessingProcess" namespace="http://www.wso2.org/samples/OrderProcessingProcess/" schemaLocation="OrderProcessingProcess?xsd=OrderProcessingProcess.xsd"/>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="processResponse">
+    <wsdl:part name="processResponse" element="tns:processResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="processRequest">
+    <wsdl:part name="process" element="tns:process"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="OrderProcessingProcess">
+    <wsdl:operation name="process">
+      <wsdl:input message="tns:processRequest"></wsdl:input>
+      <wsdl:output message="tns:processResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrderProcessingProcessSOAP" type="tns:OrderProcessingProcess">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="process">
+      <soap:operation soapAction="http://www.wso2.org/samples/OrderProcessingProcess/process"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OrderProcessingProcess">
+    <wsdl:port name="OrderProcessingProcessSOAP" binding="tns:OrderProcessingProcessSOAP">
+      <soap:address location="http://10.100.0.52:9763/services/OrderProcessingProcess/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:9763/services/OrderProcessingProcess?xsd=OrderProcessingProcess.xsd</con:url><con:content><![CDATA[<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.wso2.org/samples/OrderProcessingProcess/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.wso2.org/samples/OrderProcessingProcess/">
+  <xsd:complexType name="invoiceType">
+    <xsd:sequence>
+      <xsd:element name="customerID" type="xsd:string"/>
+      <xsd:element name="items" type="tns:ItemsType"/>
+      <xsd:element name="shippingAddress" type="xsd:string"/>
+      <xsd:element name="city" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="process" type="tns:invoiceType"/>
+  <xsd:element name="processResponse">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="orderID" type="xsd:string"/>
+        <xsd:element name="status" type="xsd:string"/>
+        <xsd:element name="total" type="xsd:double"/>
+        <xsd:element name="details" type="xsd:string"/>
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+  <xsd:complexType name="ItemsType">
+    <xsd:sequence>
+      <xsd:element maxOccurs="unbounded" name="item" type="tns:itemType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="itemType">
+    <xsd:sequence>
+      <xsd:element name="itemID" type="xsd:string"/>
+      <xsd:element name="quantity" type="xsd:int"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://10.100.0.52:9763/services/OrderProcessingProcess/</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://www.wso2.org/samples/OrderProcessingProcess/process" name="process" bindingOperationName="process" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.100.0.52:9763/services/OrderProcessingProcess/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://www.wso2.org/samples/OrderProcessingProcess/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:process>
+         <ord:customerID>user1</ord:customerID>
+         <ord:items>
+            <ord:item>
+               <ord:itemID>100</ord:itemID>
+               <ord:quantity>2</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>2001</ord:itemID>
+               <ord:quantity>3</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>6002</ord:itemID>
+               <ord:quantity>2</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>10500</ord:itemID>
+               <ord:quantity>4</ord:quantity>
+            </ord:item>
+         </ord:items>
+         <ord:shippingAddress>No 2, Main street, New York</ord:shippingAddress>
+         <ord:city>New York</ord:city>
+      </ord:process>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.wso2.org/samples/OrderProcessingProcess/process"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.100.0.52:9763/services/OrderProcessingProcess/</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ord="http://www.wso2.org/samples/OrderProcessingProcess/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <ord:process>
+         <ord:customerID>user2</ord:customerID>
+         <ord:items>
+            <ord:item>
+               <ord:itemID>100</ord:itemID>
+               <ord:quantity>2</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>2001</ord:itemID>
+               <ord:quantity>3</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>6002</ord:itemID>
+               <ord:quantity>2</ord:quantity>
+            </ord:item>
+            <ord:item>
+               <ord:itemID>10500</ord:itemID>
+               <ord:quantity>1</ord:quantity>
+            </ord:item>
+         </ord:items>
+         <ord:shippingAddress>No 45, Main street, Phoenix</ord:shippingAddress>
+         <ord:city>Phoenix</ord:city>
+      </ord:process>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.wso2.org/samples/OrderProcessingProcess/process"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

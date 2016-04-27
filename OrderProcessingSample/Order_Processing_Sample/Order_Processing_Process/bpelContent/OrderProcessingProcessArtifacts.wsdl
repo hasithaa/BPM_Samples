@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:tns="http://wso2.org/bps/sample/OrderprocessingArtifacts" xmlns:vprop="http://docs.oasis-open.org/wsbpel/2.0/varprop" xmlns:wsdl="http://www.wso2.org/samples/OrderProcessingProcess/" xmlns:wsdl1="http://www.wso2.org/samples/InvoicingService/" xmlns:wsdl2="http://www.wso2.org/samples/OrderProcessingApprovalTask/" xmlns:wsdl3="http://org.wso2.brs.sample/ns" xmlns:wsdl4="http://www.wso2.org/samples/PlaceOrderService/" name="OrderProcessingProcessArtifacts" targetNamespace="http://wso2.org/bps/sample/OrderprocessingArtifacts">
+  <plnk:partnerLinkType name="OrderProcessingProcessPLT">
+    <plnk:role name="OrderProcessingProcessProvider" portType="wsdl:OrderProcessingProcess"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="InvoicingServicePLT">
+    <plnk:role name="InvoicingServiceProvider" portType="wsdl1:InvoicingService"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="HumanNotificationServicePLT">
+    <plnk:role name="HumanNotificationServiceProvider" portType="wsdl2:OrderProcessingNotifications"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="OrderApprovalTask">
+    <plnk:role name="OrderApprovalProvider" portType="wsdl2:OrderProcessingApprovalTask"/>
+    <plnk:role name="OrderApprovalResultProvider" portType="wsdl2:OrderProcessingApprovalTaskCallback"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="WarehouseLocatorServicePLT">
+    <plnk:role name="WarehouseLocatorProvider" portType="wsdl3:warehouseLocatorPortType"/>
+  </plnk:partnerLinkType>
+    <plnk:partnerLinkType name="PlaceOrderServicePLT">
+    <plnk:role name="PlaceOrderProvider" portType="wsdl4:PlaceOrderService"/>
+  </plnk:partnerLinkType>
+    <import location="OrderProcessingProcess.wsdl" namespace="http://www.wso2.org/samples/OrderProcessingProcess/"/>
+    <import location="InvoicingService.wsdl" namespace="http://www.wso2.org/samples/InvoicingService/"/>
+    <import location="OrderProcessingApprovalTask.wsdl" namespace="http://www.wso2.org/samples/OrderProcessingApprovalTask/"/>
+    <import location="WarehouseLocator.wsdl" namespace="http://org.wso2.brs.sample/ns"/>
+    <import location="PlaceOrderService.wsdl" namespace="http://www.wso2.org/samples/PlaceOrderService/"/>
+</definitions>

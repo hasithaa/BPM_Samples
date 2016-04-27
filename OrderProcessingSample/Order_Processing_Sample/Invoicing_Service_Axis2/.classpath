@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+  <classpathentry kind="src" path="src/main/java" including="**/*.java"/>
+  <classpathentry kind="src" path="src/main/resources" excluding="**/*.java"/>
+  <classpathentry kind="output" path="target/classes"/>
+  <classpathentry kind="var" path="M2_REPO/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar"/>
+  <classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/axis2/wso2/axis2/1.6.1.wso2v14/axis2-1.6.1.wso2v14.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/ws/commons/axiom/wso2/axiom/1.2.11.wso2v6/axiom-1.2.11.wso2v6.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/wso2/geronimo-stax-api_1.0_spec/1.0.1.wso2v2/geronimo-stax-api_1.0_spec-1.0.1.wso2v2.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/geronimo/specs/geronimo-stax-api_1.0_spec/1.0.1/geronimo-stax-api_1.0_spec-1.0.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/woodstox/stax2-api/3.1.1/stax2-api-3.1.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/woodstox/woodstox-core-asl/4.2.0/woodstox-core-asl-4.2.0.jar"/>
+</classpath>

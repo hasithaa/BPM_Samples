@@ -1,0 +1,137 @@
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:ax2410="http://org.wso2.brs.sample/warehouselocator" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://org.wso2.brs.sample/ns"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://org.wso2.brs.sample/ns">
+	<wsdl:types>
+		<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+			attributeFormDefault="qualified" elementFormDefault="qualified"
+			targetNamespace="http://org.wso2.brs.sample/warehouselocator">
+			<xs:complexType name="Request">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="cityName" nillable="true"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getWarehouseDetailsRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Request"
+							type="ax2410:Request" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="Response">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="warehouse" nillable="true"
+						type="ax2410:Warehouse" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Warehouse">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="address" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="capacityLevel" type="xs:int" />
+					<xs:element minOccurs="0" name="city" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="name" nillable="true"
+						type="xs:string" />
+					<xs:element minOccurs="0" name="postCode" nillable="true"
+						type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element name="getWarehouseDetailsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element maxOccurs="unbounded" minOccurs="0" name="Response"
+							type="ax2410:Response" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="getWarehouseDetailsRequestMessage">
+		<wsdl:part name="parameters" element="ax2410:getWarehouseDetailsRequest" />
+	</wsdl:message>
+	<wsdl:message name="getWarehouseDetailsResponseMessage">
+		<wsdl:part name="parameters" element="ax2410:getWarehouseDetailsResponse" />
+	</wsdl:message>
+	<wsdl:portType name="warehouseLocatorPortType">
+		<wsdl:operation name="getWarehouseDetails">
+			<wsdl:input message="tns:getWarehouseDetailsRequestMessage"
+				wsaw:Action="urn:getWarehouseDetails" />
+			<wsdl:output message="tns:getWarehouseDetailsResponseMessage"
+				wsaw:Action="urn:getWarehouseDetailsResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="warehouseLocatorSoap11Binding" type="tns:warehouseLocatorPortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getWarehouseDetails">
+			<soap:operation soapAction="urn:getWarehouseDetails"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="warehouseLocatorSoap12Binding" type="tns:warehouseLocatorPortType">
+		<soap12:binding transport="http://schemas.xmlsoap.org/soap/http"
+			style="document" />
+		<wsdl:operation name="getWarehouseDetails">
+			<soap12:operation soapAction="urn:getWarehouseDetails"
+				style="document" />
+			<wsdl:input>
+				<soap12:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap12:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="warehouseLocatorHttpBinding" type="tns:warehouseLocatorPortType">
+		<http:binding verb="POST" />
+		<wsdl:operation name="getWarehouseDetails">
+			<http:operation location="getWarehouseDetails" />
+			<wsdl:input>
+				<mime:content type="text/xml" part="parameters" />
+			</wsdl:input>
+			<wsdl:output>
+				<mime:content type="text/xml" part="parameters" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="warehouseLocator">
+		<wsdl:port name="warehouseLocatorHttpSoap11Endpoint"
+			binding="tns:warehouseLocatorSoap11Binding">
+			<soap:address
+				location="http://localhost:9863/services/warehouseLocator.warehouseLocatorHttpSoap11Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="warehouseLocatorHttpsSoap11Endpoint"
+			binding="tns:warehouseLocatorSoap11Binding">
+			<soap:address
+				location="https://localhost:9543/services/warehouseLocator.warehouseLocatorHttpsSoap11Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="warehouseLocatorHttpSoap12Endpoint"
+			binding="tns:warehouseLocatorSoap12Binding">
+			<soap12:address
+				location="http://localhost:9863/services/warehouseLocator.warehouseLocatorHttpSoap12Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="warehouseLocatorHttpsSoap12Endpoint"
+			binding="tns:warehouseLocatorSoap12Binding">
+			<soap12:address
+				location="https://localhost:9543/services/warehouseLocator.warehouseLocatorHttpsSoap12Endpoint/" />
+		</wsdl:port>
+		<wsdl:port name="warehouseLocatorHttpsEndpoint" binding="tns:warehouseLocatorHttpBinding">
+			<http:address
+				location="https://localhost:9543/services/warehouseLocator.warehouseLocatorHttpsEndpoint/" />
+		</wsdl:port>
+		<wsdl:port name="warehouseLocatorHttpEndpoint" binding="tns:warehouseLocatorHttpBinding">
+			<http:address
+				location="http://localhost:9863/services/warehouseLocator.warehouseLocatorHttpEndpoint/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

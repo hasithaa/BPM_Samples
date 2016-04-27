@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.wso2.org/samples/PlaceOrderService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="PlaceOrderService"
+	targetNamespace="http://www.wso2.org/samples/PlaceOrderService/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.wso2.org/samples/PlaceOrderService/">
+			<xsd:element name="placeOrder">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderID" type="xsd:string" />
+						<xsd:element name="WarehouseLocation"
+							type="xsd:string">
+						</xsd:element>
+						<xsd:element name="CustomerAddress"
+							type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="placeOrderResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Status" type="xsd:string" />
+						<xsd:element name="EstimatedShippingDate"
+							type="xsd:date">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="placeOrderRequest">
+		<wsdl:part element="tns:placeOrder" name="parameters" />
+	</wsdl:message>
+	<wsdl:message name="placeOrderResponse">
+		<wsdl:part element="tns:placeOrderResponse" name="parameters" />
+	</wsdl:message>
+	<wsdl:portType name="PlaceOrderService">
+		<wsdl:operation name="placeOrder">
+			<wsdl:input message="tns:placeOrderRequest" />
+			<wsdl:output message="tns:placeOrderResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="PlaceOrderServiceSOAP" type="tns:PlaceOrderService">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="placeOrder">
+			<soap:operation
+				soapAction="http://www.wso2.org/samples/PlaceOrderService/placeOrder" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="PlaceOrderService">
+		<wsdl:port binding="tns:PlaceOrderServiceSOAP" name="PlaceOrderServiceSOAP">
+			<soap:address location="http://localhost:9763/services/PlaceOrderService" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

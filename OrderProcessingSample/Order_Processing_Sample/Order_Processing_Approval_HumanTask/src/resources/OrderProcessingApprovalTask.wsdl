@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://www.wso2.org/samples/OrderProcessingApprovalTask/"
+	xmlns:htt="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	name="OrderProcessingApprovalTask" targetNamespace="http://www.wso2.org/samples/OrderProcessingApprovalTask/">
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.wso2.org/samples/OrderProcessingApprovalTask/"
+			elementFormDefault="qualified">
+			<xsd:import id="HumanTask"
+				namespace="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803"
+				schemaLocation="HumanTask.xsd"></xsd:import>
+			<xsd:element name="approve">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="orderID" type="xsd:string" />
+						<xsd:element name="customerID" type="xsd:string">
+						</xsd:element>
+						<xsd:element name="totalAmount" type="xsd:double">
+						</xsd:element>
+						<xsd:element name="city" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="completeTask">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="decision" type="xsd:boolean">
+						</xsd:element>
+						<xsd:element name="reviewerComments" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="notify">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="orderID" type="xsd:string"></xsd:element>
+						<xsd:element name="customer" type="htt:tOrganizationalEntity"></xsd:element>
+						<xsd:element name="subject" type="xsd:string">
+						</xsd:element>
+						<xsd:element name="message" type="xsd:string">
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="approveRequest">
+		<wsdl:part element="tns:approve" name="approve" />
+	</wsdl:message>
+	<wsdl:message name="completeTaskRequest">
+		<wsdl:part name="completeTask" element="tns:completeTask"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="notifyRequest">
+		<wsdl:part name="notify" element="tns:notify"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="OrderProcessingApprovalTask">
+		<wsdl:operation name="approve">
+			<wsdl:input message="tns:approveRequest" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="OrderProcessingApprovalTaskCallback">
+		<wsdl:operation name="completeTask">
+			<wsdl:input message="tns:completeTaskRequest"></wsdl:input>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:portType name="OrderProcessingNotifications">
+		<wsdl:operation name="notify">
+			<wsdl:input message="tns:notifyRequest"></wsdl:input>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="OrderProcessingApprovalTaskSOAP" type="tns:OrderProcessingApprovalTask">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="approve">
+			<soap:operation
+				soapAction="http://www.wso2.org/samples/OrderProcessingApprovalTask/approve" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="OrderProcessingApprovalTaskCallbackSOAP"
+		type="tns:OrderProcessingApprovalTaskCallback">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="completeTask">
+			<soap:operation
+				soapAction="http://www.wso2.org/samples/OrderProcessingApprovalTask/completeTask" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:binding name="OrderProcessingNotificationsSOAP"
+		type="tns:OrderProcessingNotifications">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="notify">
+			<soap:operation
+				soapAction="http://www.wso2.org/samples/OrderProcessingApprovalTask/notify" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="OrderProcessingApprovalTask">
+		<wsdl:port binding="tns:OrderProcessingApprovalTaskSOAP"
+			name="OrderProcessingApprovalTaskSOAP">
+			<soap:address
+				location="http://localhost:9763/services/OrderProcessingApprovalTask" />
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="OrderProcessingApprovalTaskCallback">
+		<wsdl:port name="OrderProcessingApprovalTaskCallbackSOAP"
+			binding="tns:OrderProcessingApprovalTaskCallbackSOAP">
+			<soap:address
+				location="http://localhost:9763/services/OrderProcessingApprovalTaskCallback" />
+		</wsdl:port>
+	</wsdl:service>
+	<wsdl:service name="OrderProcessingNotifications">
+		<wsdl:port name="OrderProcessingNotificationsSOAP" binding="tns:OrderProcessingNotificationsSOAP">
+			<soap:address
+				location="http://localhost:9763/services/OrderProcessingNotifications" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

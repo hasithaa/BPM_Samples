@@ -1,0 +1,46 @@
+package org.wso2.sample.warehouselocator.rules
+
+//list any import classes here.
+import org.wso2.sample.warehouselocator.Request;
+import org.wso2.sample.warehouselocator.Response;
+import org.wso2.sample.warehouselocator.Warehouse;
+import org.wso2.sample.warehouselocator.WarehouseStore;
+
+
+//declare any global variables here
+global org.wso2.sample.warehouselocator.WarehouseStore store;
+
+rule "Populate warehouse list if not already populated" salience 3
+	when
+    	eval( true )
+	then
+    	store.populateWarehouseList();
+end
+
+rule "Find relavant warehouse" salience 2
+
+    when
+    	$request : Request( cityName != null )
+        eval( store.isExists($request.getCityName()) == true )
+    then
+        System.out.println( "***********Relavent warehouse found*************" );
+             
+        Response response = new Response(store.getWarehouse($request.getCityName()));
+
+		insertLogical(response);
+end
+
+rule "warehouse not found" salience 1
+
+    when
+    	$request : Request( cityName != null )
+        eval( store.isExists($request.getCityName()) == false)
+    then
+        System.out.println( "***********Relavent warehouse not found*************" );
+        
+        //providing default warehouse as New York Warehouse                
+        Response response = new Response(store.getWarehouse("New York"));
+        
+		insertLogical(response);
+end
+

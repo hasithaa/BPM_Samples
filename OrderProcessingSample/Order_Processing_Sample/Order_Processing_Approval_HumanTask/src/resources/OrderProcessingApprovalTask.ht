@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<htd:humanInteractions
+	xmlns:htd="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/200803"
+	xmlns:htt="http://docs.oasis-open.org/ns/bpel4people/ws-humantask/types/200803"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:tns="http://www.wso2.org/samples/OrderProcessingApprovalTask/"
+	xmlns:wso2="http://wso2.org/ht/schema/renderings/" targetNamespace="http://www.wso2.org/samples/OrderProcessingApprovalTask/">
+
+	<htd:documentation>
+		Order Processing Approval Task.
+	</htd:documentation>
+
+	<htd:import importType="http://schemas.xmlsoap.org/wsdl/"
+		location="OrderProcessingApprovalTask.wsdl" namespace="http://www.wso2.org/samples/OrderProcessingApprovalTask/" />
+
+	<htd:tasks>
+		<htd:task name="ApproveOrder">
+			<htd:documentation xml:lang="en-US">
+				This task is used to
+				handle orders that require manual approval.
+			</htd:documentation>
+
+			<htd:interface portType="tns:OrderProcessingApprovalTask"
+				operation="approve" responsePortType="tns:OrderProcessingApprovalTaskCallback"
+				responseOperation="completeTask" />
+
+			<htd:priority>5</htd:priority>
+
+			<htd:peopleAssignments>
+				<htd:potentialOwners>
+					<htd:from>
+						<htd:literal>
+							<htt:organizationalEntity>
+								<htt:group>regionalClerksRole</htt:group>
+							</htt:organizationalEntity>
+						</htd:literal>
+					</htd:from>
+				</htd:potentialOwners>
+				<htd:businessAdministrators>
+					<htd:from>
+						<htd:literal>
+							<htt:organizationalEntity>
+								<htt:group>regionalManagerRole</htt:group>
+							</htt:organizationalEntity>
+						</htd:literal>
+					</htd:from>
+				</htd:businessAdministrators>
+			</htd:peopleAssignments>
+
+			<htd:presentationElements>
+				<htd:name xml:lang="en-US">Order approval task</htd:name>
+				<htd:presentationParameters>
+					<htd:presentationParameter name="orderID"
+						type="xsd:string">
+						htd:getInput("approve")/tns:orderID
+					</htd:presentationParameter>
+					<htd:presentationParameter name="customerID"
+						type="xsd:string">
+						htd:getInput("approve")/tns:customerID
+					</htd:presentationParameter>
+					<htd:presentationParameter name="totalAmount"
+						type="xsd:double">
+						htd:getInput("approve")/tns:totalAmount
+					</htd:presentationParameter>
+					<htd:presentationParameter name="city"
+						type="xsd:string">
+						htd:getInput("approve")/tns:city
+					</htd:presentationParameter>
+				</htd:presentationParameters>
+
+				<htd:subject xml:lang="en-US">
+					Review order $orderID$.
+				</htd:subject>
+				<htd:description xml:lang="en-US">
+					$customerID$ has ordered
+					items worth USD $totalAmount$. Items are shipping to $city$. Please
+					review order ID $orderID$.
+				</htd:description>
+			</htd:presentationElements>
+
+			<htd:renderings>
+				<!-- Display Input Information to the User -->
+				<htd:rendering type="wso2:input">
+					<wso2:inputs>
+						<wso2:element id="orderID">
+							<wso2:label>Order ID</wso2:label>
+							<wso2:value>$orderID$</wso2:value>
+						</wso2:element>
+						<wso2:element id="customerID">
+							<wso2:label>Customer ID</wso2:label>
+							<wso2:value>$customerID$</wso2:value>
+						</wso2:element>
+						<wso2:element id="totalAmount">
+							<wso2:label>Total Amount</wso2:label>
+							<wso2:value>$totalAmount$</wso2:value>
+						</wso2:element>
+						<wso2:element id="city">
+							<wso2:label>Customer location</wso2:label>
+							<wso2:value>$city$</wso2:value>
+						</wso2:element>
+					</wso2:inputs>
+				</htd:rendering>
+
+				<!-- Display elements to the user workspace which implements output message -->
+				<htd:rendering type="wso2:output">
+					<wso2:outputs>
+						<wso2:element id="approved">
+							<wso2:label>Order Approval Status</wso2:label>
+							<wso2:xpath>/tns:completeTask/tns:decision
+							</wso2:xpath>
+							<wso2:value type="boolean">Approve, Disapprove</wso2:value>
+							<wso2:default>Disapproved</wso2:default>
+						</wso2:element>
+						<wso2:element id="comments">
+							<wso2:label>Reviewer comments</wso2:label>
+							<wso2:xpath>/tns:completeTask/tns:reviewerComments
+							</wso2:xpath>
+							<wso2:value type="string"></wso2:value>
+							<wso2:default></wso2:default>
+						</wso2:element>
+					</wso2:outputs>
+				</htd:rendering>
+			</htd:renderings>
+
+		</htd:task>
+	</htd:tasks>
+
+
+	<htd:notifications>
+		<htd:notification name="OrderApprovalNotification">
+			<htd:documentation xml:lang="en-US">
+				This notification is
+				used to notify customers about their order.
+			</htd:documentation>
+
+			<htd:interface portType="tns:OrderProcessingNotifications"
+				operation="notify" />
+
+			<htd:peopleAssignments>
+				<htd:recipients>
+					<htd:from>htd:getInput("notify")/tns:customer
+					</htd:from>
+				</htd:recipients>
+			</htd:peopleAssignments>
+
+			<htd:presentationElements>
+				<htd:name xml:lang="en-US">Order update</htd:name>
+				<htd:presentationParameters>
+					<htd:presentationParameter name="orderID"
+						type="xsd:string">htd:getInput("notify")/tns:orderID
+					</htd:presentationParameter>
+					<htd:presentationParameter name="subject"
+						type="xsd:string">htd:getInput("notify")/tns:subject
+					</htd:presentationParameter>
+					<htd:presentationParameter name="message"
+						type="xsd:string">htd:getInput("notify")/tns:message
+					</htd:presentationParameter>
+				</htd:presentationParameters>
+				<htd:subject xml:lang="en-US">
+					An update on Your order $orderID$ : $subject$
+				</htd:subject>
+				<htd:description xml:lang="en-US">$message$
+				</htd:description>
+			</htd:presentationElements>
+
+			<htd:renderings>
+				<!-- Display Input Information to the User -->
+				<htd:rendering type="wso2:input">
+					<wso2:inputs>
+						<wso2:element id="orderID">
+							<wso2:label>Order ID</wso2:label>
+							<wso2:value>$orderID$</wso2:value>
+						</wso2:element>
+					</wso2:inputs>
+				</htd:rendering>
+			</htd:renderings>
+
+		</htd:notification>
+	</htd:notifications>
+</htd:humanInteractions>
