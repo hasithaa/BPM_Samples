@@ -1,6 +1,2 @@
 target/
-*.jar
-*.zip
-*.aar
-*.war
 *~
