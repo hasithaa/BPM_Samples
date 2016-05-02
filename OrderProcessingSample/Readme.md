@@ -18,12 +18,12 @@ This sample contains
 * Workflow :[Order_Processing_Process](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Order_Processing_Process) is written using WS-BPEL 2.0.
 * Human task & notification : [Order_Processing_Approval_HumanTask](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Order_Processing_Approval_HumanTask) is defined using WS-HumanTask 1.1.
 * Rules service : [Warehouse_Locator_Service](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Warehouse_Locator_Service) is written using Drools. 
-* Web Service : [Invoicing_Service_Axis2](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Invoicing_Service_Axis2) and [Place_Order_Axis2](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Place_Order_Axis2) are written using Axis2.
+* Web Services : [Invoicing_Service_Axis2](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Invoicing_Service_Axis2) and [Place_Order_Axis2](https://github.com/hasithaa/BPM_Samples/tree/master/OrderProcessingSample/Order_Processing_Sample/Place_Order_Axis2) are written using Axis2.
 
 ## Products used 
 
-* WSO2 Business Process Server 3.5.1 (WS-BPEL 2.0, WS-HumanTask 1.1, BPMN 2.0 runtime.)
-* WSO2 Business Rule Server 2.2.0 (Rule engine )
+* WSO2 Business Process Server 3.5.1 (WS-BPEL 2.0, WS-HumanTask 1.1, BPMN 2.0 runtime)
+* WSO2 Business Rule Server 2.2.0 (Rule engine)
 * WSO2 Developer studio 3.8.0 - Developer tool
 
 ## Building Artifacts 
@@ -49,17 +49,16 @@ This sample contains
 * Copy all folders in `Artifacts/target/bps/` to `<BPS_HOME>/repository/deployment/server/`
 * Create following roles and users
 
-role | users | permissions 
+Role Name | Users | Permissions 
 --- | --- | --- 
 customers | user1, user2 | Login, HumanTask 
 regionalClerksRole | clerk1, clerk2 | Login, HumanTask 
-regionalManagerRole | manager1, manager3 | Login, Admin 
+regionalManagerRole | manager1, manager2 | Login, Admin 
 
 ### Setting up WSO2 BRS 2.2.0
 
 * Start WSO2 Business Rule Server 2.2.0 with 100 port offset. ```./wso2server.sh -DportOffset=100```
 * Copy the folder in `Artifacts/target/brs/` to `<BRS_HOME>/repository/deployment/server/`
-
 
 ## Testing Sample
 
@@ -98,7 +97,7 @@ regionalManagerRole | manager1, manager3 | Login, Admin
 * This request generates total value, which is grater than USD 500. Hence this will a required manual user approval. 
 
   > Note !
-  > Total value calculation logic can be found from [here](https://github.com/hasithaa/BPM_Samples/blob/master/OrderProcessingSample/Order_Processing_Sample/Invoicing_Service_Axis2/src/main/java/org/wso2/samples/invoicingservice/InvoicingServiceSkeleton.java). 
+  > Total order value calculation logic is defined [here](https://github.com/hasithaa/BPM_Samples/blob/master/OrderProcessingSample/Order_Processing_Sample/Invoicing_Service_Axis2/src/main/java/org/wso2/samples/invoicingservice/InvoicingServiceSkeleton.java). 
 
 * Process generates a notification for user1 by including status of the order. After that process creates a humantask for regional clerk roles.
 
